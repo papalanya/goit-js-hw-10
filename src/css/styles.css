@@ -31,6 +31,7 @@ p {
 
 ul,
 ol {
+  list-style: none;
   margin: 0;
   padding: 0;
 }
@@ -39,4 +40,50 @@ img {
   display: block;
   max-width: 100%;
   height: auto;
+}
+
+#search-box {
+  font: inherit;
+  padding: 8px;
+  max-width: 320px;
+  margin-bottom: 16px;
+}
+
+.country-list__item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.country-list__icon {
+  margin-right: 15px;
+}
+
+.country-list__name {
+  font-weight: bold;
+}
+
+.country-info__item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.country-info__title {
+  font-size: 26px;
+}
+
+.article-wrapper {
+  display: flex;
+  align-items: baseline;
+}
+
+.country-info__article {
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.article-wrapper:not(:last-child) {
+  margin-bottom: 10px;
 }
