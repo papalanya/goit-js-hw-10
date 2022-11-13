@@ -11,7 +11,7 @@ const refs = {
   countryInfo: document.querySelector('.country-info'),
 };
 
-let country = '';
+let name = '';
 
 refs.input.addEventListener('input', debounce(searchInput, DEBOUNCE_DELAY));
 
@@ -20,33 +20,52 @@ function clearMarkup() {
   refs.countryInfo.innerHTML = '';
 }
 
+function onError() {
+  Notiflix.Notify.failure('Oops, there is no country with that name');
+}
+
 function searchInput(e) {
-  clearMarkup();
-  country = e.target.value.trim();
-  fetchCountries(country).then(createMarkup).catch(onError);
-}
-
-function onError(error) {
-  // if (error.message === '404') {
-    return Notiflix.Notify.failure('Oops, there is no country with that name');
-  // }
-  // return Notiflix.Notify.failure(`Oops, server error:"${error}"`);
-}
-
-function createMarkup(data) {
-  if (data.length > 10) {
+    name = e.target.value.trim();
     clearMarkup();
-    Notiflix.Notify.info(
-      'Too many matches found. Please enter a more specific name.'
-    );
-  } else if (data.length >= 2 && data.length <= 10) {
-    markupCountiesList(data);
-  } else {
-    markupCountryInfo(data);
-  } 
+    createMarkup(name);
+
+    function createMarkup(name) {
+      fetchCountries(name)
+        .then(data => {
+          console.log(data);
+
+          if (data.length > 10) {
+            return Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
+          } else if (data.length >= 2 && data.length <= 10) {
+            markupCountriesList(data);
+          } else {
+            markupCountryInfo(data);
+          }
+        })
+        .catch(onError);
+    }
 }
 
-function markupCountiesList(data) {
+// function searchInput(e) {
+//   country = e.target.value.trim();
+//   clearMarkup();
+//   fetchCountries(country).then(createMarkup).catch(onError);
+// }
+
+// function createMarkup(data) {
+//   if (data.length > 10) {
+//     clearMarkup();
+//     Notiflix.Notify.info(
+//       'Too many matches found. Please enter a more specific name.'
+//     );
+//   } else if (data.length >= 2 && data.length <= 10) {
+//     markupCountriesList(data);
+//   } else {
+//     markupCountryInfo(data);
+//   } 
+// }
+
+function markupCountriesList(data) {
   clearMarkup();
   const markupList = data
     .map(country => {
