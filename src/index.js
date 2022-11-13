@@ -34,10 +34,10 @@ function searchInput(e) {
         .then(data => {
           console.log(data);
 
-          if (data.length > 10) {
-            return Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
-          } else if (data.length >= 2 && data.length <= 10) {
+          if (data.length >= 2 && data.length <= 10) {
             markupCountriesList(data);
+          } else if (data.length > 10) {
+            return Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
           } else {
             markupCountryInfo(data);
           }
