@@ -70,7 +70,7 @@ function markupCountriesList(data) {
   const markupList = data
     .map(country => {
       return `<li class="country-list__item">
-            <img class="country-list__icon"src=${country.flag.svg} width=40>
+            <img class="country-list__icon"src=${country.flags.svg} width=40>
             <h2 class="country-list__name">${country.name.official}</h2>
             </li>`;
     })
